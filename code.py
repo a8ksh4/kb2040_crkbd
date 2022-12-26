@@ -4,6 +4,7 @@ from kmk.extensions.rgb import RGB
 from kmk.keys import KC
 from kmk.modules.layers import Layers
 from kmk.modules.split import Split, SplitSide, SplitType
+import os
 
 keyboard = KMKKeyboard()
 
@@ -11,9 +12,19 @@ keyboard = KMKKeyboard()
 # rgb = RGB(pixel_pin=keyboard.rgb_pixel_pin, num_pixels=27, val_limit=100, hue_default=190, sat_default=100, val_default=5)
 
 # TODO Comment one of these on each side
-split_side = SplitSide.LEFT
-split_side = SplitSide.RIGHT
-split = Split(split_type=SplitType.BLE, split_side=split_side)
+if 'left_side' in os.listdir('/'):
+    split_side = SplitSide.LEFT
+    print('Left Side')
+elif 'right_side' in os.listdir('/'):
+    split_side = SplitSide.RIGHT
+    print('Right Side')
+else:
+    print('No left side or right side?')
+print(dir(SplitType))
+#split = Split(split_type=SplitType.BLE, split_side=split_side)
+#split = Split(split_type=SplitType.I2C, split_side=split_side)
+#split = Split(split_type=SplitType.UART, split_side=split_side)
+split = Split(split_type=SplitType.ONEWIRE, split_side=split_side)
 
 layers_ext = Layers()
 
